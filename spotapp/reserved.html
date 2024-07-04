@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vagas Reservadas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h2>Vagas Reservadas</h2>
+    <ul id="reservedList"></ul>
+    <p>Voltar para <a href="reservation.html">Reserva de Vagas</a></p>
+    <script src="js/scripts.js"></script>
+    <script>
+
+        async function displayReservedSpots() {
+            const db = await openDatabase();
+            const reservations = await listReservations(db);
+
+            const reservedList = document.getElementById('reservedList');
+            reservedList.innerHTML = '';
+
+            reservations.forEach(reservation => {
+                const li = document.createElement('li');
+                li.textContent = `Usuário: ${reservation.username}, Vaga: ${reservation.spot}, Tempo Reservado: ${reservation.time} horas`;
+                reservedList.appendChild(li);
+            });
+        }
+
+ 
+        displayReservedSpots();
+    </script>
+</body>
+</html>
